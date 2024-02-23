@@ -25,8 +25,10 @@
     export let hint = options.hint || '';
     export let validations = options.validate || [];
     export let expandable = options.expandable ?? false
+    export let lines = options.lines ?? null;
     export let inputElement;
     export let password = options.password ?? null;
+    export let limit = options.limit ?? false;
 
     if (required) {
         _class += ' required';
@@ -82,7 +84,7 @@
     $: ready = !fail && (!required || !!value);
 </script>
 <div class="string-field">
-{#if expandable && !password && !mask}
+{#if (expandable || lines) && !password && !mask}
     <Textarea
         {filled}
         {outlined}
@@ -93,6 +95,8 @@
         {color}
         {style}
         {error}
+        counter={limit}
+        {limit}
         class={_class}
         bind:value
         {hint}
@@ -108,7 +112,7 @@
         on:keyup
 
         autogrow
-        rows={1}
+        rows={lines ?? 1}
         bind:this={inputComponent}
         name={options.id}
     >
@@ -127,6 +131,8 @@
         {color}
         {style}
         {error}
+        counter={limit}
+        {limit}
         {password}
         class={_class}
         bind:value

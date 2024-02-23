@@ -7,6 +7,7 @@
     export let actions = [];
     export let header = {};
 
+
     let dispatch = createEventDispatcher();
     let actionHandler = (event) => {
         dispatch('action', event)
@@ -17,23 +18,24 @@
 
     let hasHeader = !!header.title;
     let hasFooter = (back || actions && actions.length);
+
 </script>
 
 <div class="card" style="{hasHeader ? '--card-header-height: 62px;' : ''}{hasFooter ? '--card-footer-height: 68px' : ''}">
-    <slot name="header">
+    <slot name="header" {header}>
         {#if header.title}
-        <div class="header" style="--card-header-height: 62px">
-            <div class="title">{header.title}</div>
-            {#if header.subtitle}<div class="subtitle">{header.subtitle}</div>{/if}
-        </div>
+            <div class="header" style="--card-header-height: 62px">
+                <div class="title">{header.title}</div>
+                {#if header.subtitle}<div class="subtitle">{header.subtitle}</div>{/if}
+            </div>
         {/if}
     </slot>
     <slot name="content">
-        <div class="content">
+        <div class="content overflow-content">
             <slot />
         </div>
     </slot>
-    <slot name="actions">
+    <slot name="actions" {actions}>
         {#if hasFooter}
         <div class="footer upper-layer" style="--card-footer-height: 68px">
             <div class="back">
@@ -47,10 +49,10 @@
                 {#each actions as action}
                     <div class="action">
                         <Button
-                                disabled={disabled || action.disabled}
-                                depressed
-                                on:click={() => actionHandler(action.event)}
-                                class="{action.important ? 'red white-text' : '' }"
+                            disabled={disabled || action.disabled}
+                            depressed
+                            on:click={() => actionHandler(action.event)}
+                            class="{action.important ? (action.class ?? 'primary-color') : '' }"
                         >
                             {action.caption}
                         </Button>

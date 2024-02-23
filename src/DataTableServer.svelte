@@ -2,6 +2,8 @@
     import DataTable from 'material-components/src/components/DataTable/DataTable.svelte';
     import axios from "axios";
 
+    export let clickable = false;
+    export let hover = false;
     export let apiURL;
     export let texts = {
         loading: 'Loading...',
@@ -15,7 +17,7 @@
         pagination: false
     };
     let loading = true;
-    let requestData = {};
+    export let requestData = {};
 
     function request() {
         loading = true;
@@ -31,6 +33,10 @@
     }
 
     $: requestData && request();
+
+    export function refresh() {
+        requestData = requestData;
+    }
 
     function sort(e) {
         requestData.sort = e.detail;
@@ -51,6 +57,9 @@
     rows={tableData.rows}
     sorted={tableData.sorted}
     pagination={tableData.pagination || false}
+    on:rowClick
+    {clickable}
+    {hover}
     {texts}
 
     {loading}

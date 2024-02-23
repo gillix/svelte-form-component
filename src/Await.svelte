@@ -17,7 +17,7 @@
 </script>
 {#await promise}
     {#if progress}
-        <div class="progress">
+        <div class="progress" transition:fade={{duration: 200}}>
             <ProgressCircular size={70} width={3} indeterminate color="green" />
         </div>
     {/if}

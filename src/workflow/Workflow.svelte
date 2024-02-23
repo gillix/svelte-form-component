@@ -3,12 +3,13 @@
     import Window from "./TaskWindow.svelte";
     import {request} from './request';
     import Await from "../Await.svelte";
-    import {getContext, setContext, tick} from "svelte";
+    import {createEventDispatcher, getContext, setContext, tick} from "svelte";
 
     export let tasks = {};
     export let layouts = [];
     export let workflow = {start: {task: 'Empty'}};
     export let state = 'start';
+    let dispatch = createEventDispatcher();
     let fade = false;
     let task;
     let disabled = false;
@@ -48,6 +49,7 @@
 
     function completed(event) {
         let data = event.detail;
+        dispatch('completed', data);
         let target = workflow[state].target;
         if (typeof target === "string") {
             let wd = getContext('workflow-data') ?? {};
@@ -116,7 +118,7 @@
     {back}
     {actions}
     on:back={(event) => next(event.detail)}
-    on:action={(event) => actionHandler(event.detail)}
+    on:action={(event) => { actionHandler instanceof Function && actionHandler(event.detail); dispatch('action', event.detail); }}
 >
     <Await promise={wait} let:data={current}>
         <div class="state" class:fade>
@@ -134,7 +136,8 @@
         transition: opacity 200ms;
         width: 100%;
         height: 100%;
-        display: contents;
+        /*display: contents;*/
+        opacity: 1;
     }
     .fade {
         opacity: 0;
