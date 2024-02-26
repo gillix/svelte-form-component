@@ -17,7 +17,8 @@
 
   "devDependencies": {
     "@mdi/js": "^7.0.96",
-    "axios": "^0.27.2",
+    "axios": "latest",
+    "qs": "*",
     "material-components": "git+https://github.com/gillix/material-components.git",
     "svelte": "*",
     "yup": "latest",
