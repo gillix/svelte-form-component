@@ -58,10 +58,8 @@
             next(target);
         } else if (typeof target === "object") {
             if (target.api)
-                next(request(
-                    target.api,
-                    data,
-                    (response) => {
+                next(request(target.api, data)
+                    .then((response) => {
                         if (typeof target.callback === 'string') {
                             const callback = new Function('response', target.callback);
                             try {
