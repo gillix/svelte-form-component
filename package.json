@@ -1,6 +1,6 @@
 {
   "name": "svelte-useful-components",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,7 @@
   ],
 
   "devDependencies": {
+    "@imask/svelte": "latest",
     "@mdi/js": "^7.0.96",
     "axios": "latest",
     "qs": "*",

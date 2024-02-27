@@ -1,6 +1,9 @@
 <svelte:options accessors={true} />
 <script>
-    import {TextField, Textarea, Icon, Button} from 'material-components';
+    import TextField from 'material-components/src/components/TextField/TextField.svelte';
+    import Textarea from 'material-components/src/components/Textarea/Textarea.svelte';
+    import Icon from 'material-components/src/components/Icon/Icon.svelte';
+    import Button from 'material-components/src/components/Button/Button.svelte';
     import { createValidator } from '../validation';
     import {createEventDispatcher, onMount} from 'svelte';
     import {mdiEye, mdiEyeOff} from "@mdi/js";

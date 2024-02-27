@@ -1,6 +1,7 @@
 <script>
     import DataTable from 'material-components/src/components/DataTable/DataTable.svelte';
     import axios from "axios";
+    import qs from "qs";
 
     export let clickable = false;
     export let hover = false;
@@ -22,7 +23,8 @@
     function request() {
         loading = true;
         axios.get(apiURL, {
-            params: requestData
+            params: requestData,
+            paramsSerializer: params => qs.stringify(params)
         }).then(({data}) => {
             loading = false;
             tableData = data;
