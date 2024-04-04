@@ -76,14 +76,16 @@
         <div class="label">
             {title}
         </div>
-        <div class="messages">
-            {#if error && errors.length}
-                {#each errors as message}
-                    <div class="message">{errors}</div>
-                {/each}
-            {:else}
-                <div class="message">{hint}</div>
-            {/if}
+        <div class="messages-wrapper">
+            <div class="messages">
+                {#if error && errors.length}
+                    {#each errors as message}
+                        <div class="message">{errors}</div>
+                    {/each}
+                {:else}
+                    <div class="message">{hint}</div>
+                {/if}
+            </div>
         </div>
     </div>
     <div class="items" class:horizontal>
@@ -124,21 +126,24 @@
         min-width: 50%;
     }
     .header {
-        height: 40px;
-        position: relative;
+        /*height: 40px;*/
+        /*position: relative;*/
         color: var(--theme-text-secondary);
     }
     .header .label {
         font-size: 1rem;
-        position: absolute;
-        top: 16px;
+        /*position: absolute;*/
+        /*top: 16px;*/
+        /*transform: translateY(-16px);*/
+        /*margin-top: 10px;*/
         font-weight: 500;
         transform-origin: top left;
         color: var(--theme-text-primary);
         transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
     }
     .header.extended .label {
-        transform: translateY(-16px) scale(.85);
+        /*transform: translateY(-16px) scale(.85);*/
+        transform: scale(.85);
     }
     .header.error .label {
         color: currentColor;
@@ -165,9 +170,21 @@
         content: '*';
         padding-left: 1px;
     }
+
+    .messages-wrapper {
+        /*position: relative;*/
+        height: 0;
+    }
+
+    .header.extended .messages-wrapper {
+        /*transform: translateY(-20px);*/
+        height: auto;
+        margin-top: -4px;
+    }
+
     .messages {
-        position: absolute;
-        top: 20px;
+        /*position: absolute;*/
+        /*top: 0;*/
         width: 100%;
         justify-content: space-between;
         box-sizing: border-box;
