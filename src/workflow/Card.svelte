@@ -3,30 +3,38 @@
     import { createEventDispatcher } from 'svelte';
     import {Icon} from "material-components";
     import {mdiArrowLeft} from "@mdi/js";
+    import Custom from "../custom/Custom.svelte";
 
-    export let actions = [];
+    export let footer = [];
     export let header = {};
+    export let disabled = false;
 
+    let actions;
+    $: actions = footer.actions ?? [];
 
     let dispatch = createEventDispatcher();
     let actionHandler = (event) => {
         dispatch('action', event)
     };
 
-    export let back = false;
-    export let disabled = false;
+    let back = footer.back ?? false;
 
     let hasHeader = !!header.title;
-    let hasFooter = (back || actions && actions.length);
+    let hasFooter = (back || footer.notation || actions && actions.length);
 
 </script>
 
 <div class="card" style="{hasHeader ? '--card-header-height: 62px;' : ''}{hasFooter ? '--card-footer-height: 68px' : ''}">
     <slot name="header" {header}>
-        {#if header.title}
-            <div class="header" style="--card-header-height: 62px">
-                <div class="title">{header.title}</div>
-                {#if header.subtitle}<div class="subtitle">{header.subtitle}</div>{/if}
+        {#if hasHeader}
+            <div class="header" style="--card-header-height: 62px" class:with-logo={header.logo}>
+                <div class="header-content">
+                    {#if header.logo}<div class="logo"><img src="{header.logo}" alt="logo" /></div>{/if}
+                    <div class="headline">
+                        <div class="title">{header.title}</div>
+                        {#if header.subtitle}<div class="subtitle">{header.subtitle}</div>{/if}
+                    </div>
+                </div>
             </div>
         {/if}
     </slot>
@@ -38,13 +46,22 @@
     <slot name="actions" {actions}>
         {#if hasFooter}
         <div class="footer upper-layer" style="--card-footer-height: 68px">
-            <div class="back">
+            {#if back || footer.notation}
                 {#if back}
-                    <Button {disabled} icon on:click={dispatch('back', back)} >
-                        <Icon size="24" path={mdiArrowLeft} />
-                    </Button>
+                    <div class="back">
+                        <Button {disabled} icon on:click={dispatch('back', back)} >
+                            <Icon size="24" path={mdiArrowLeft} />
+                        </Button>
+                    </div>
                 {/if}
-            </div>
+                {#if footer.notation}
+                    <div class="notation">
+                        <Custom data={footer.notation} />
+                    </div>
+                {/if}
+            {:else}
+                <div></div>
+            {/if}
             <div class="actions">
                 {#each actions as action}
                     <div class="action">
@@ -125,7 +142,7 @@
         display: flex;
         flex-direction: row-reverse;
         align-items: center;
-        width: 100%;
+        /*width: 100%;*/
     }
 
     .actions .action {
@@ -139,6 +156,30 @@
     .upper-layer {
         box-shadow: 0 -18px 50px 0 rgba(255, 255, 255,.8);
         z-index: 3;
+    }
+
+    .header.with-logo {
+    }
+
+    .header.with-logo .header-content {
+        text-align: left;
+        display: flex;
+        gap: 20px;
+        max-width: 775px;
+        margin: 0 auto;
+    }
+
+    .header.with-logo .logo {
+        height: var(--card-header-height);
+    }
+
+    .header.with-logo .logo img {
+        height: calc(100% - 20px);
+        border: 1px solid var(--theme-dividers);
+    }
+
+    .header.with-logo .headline {
+        flex: 1 1 auto;
     }
 
 </style>

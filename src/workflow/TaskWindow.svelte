@@ -1,6 +1,6 @@
 <script>
 
-    export let actions = [];
+    export let footer = [];
     export let header = {};
 
     export let back = false;
@@ -9,7 +9,7 @@
 </script>
 
 <div class="window">
-    <svelte:component this={layout} {header} {disabled} {back} actions={actions} on:back on:action>
+    <svelte:component this={layout} {header} {disabled} {back} {footer} on:back on:action>
         <slot/>
     </svelte:component>
 </div>

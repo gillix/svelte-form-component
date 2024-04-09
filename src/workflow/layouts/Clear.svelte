@@ -1,7 +1,7 @@
 <script>
     import Card from "../Card.svelte";
 
-    export let actions = [];
+    export let footer = [];
     export let header = {};
 
     export let back = false;
@@ -9,7 +9,7 @@
 </script>
 
 <div class="layout default-layout">
-    <Card {header} {actions} {back} {disabled} on:back on:action>
+    <Card {header} {footer} {back} {disabled} on:back on:action>
         <div class="content" slot="content">
             <slot />
         </div>

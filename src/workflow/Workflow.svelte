@@ -83,6 +83,7 @@
     let actionHandler;
     let layout = 'default';
     let header = {};
+    let footer = {};
     let actions = [];
     $: {
         if (layout !== workflow[state]?.layout && workflow[state]?.layout !== undefined) {
@@ -107,6 +108,11 @@
             back = index !== -1 ? keys[index] : false;
         }
     }
+    $: footer = {
+        actions: actions,
+        back: back,
+        notation: workflow[state].notation ?? false
+    }
     $: task = task;
 </script>
 <Window
@@ -114,7 +120,7 @@
     {header}
     {disabled}
     {back}
-    {actions}
+    {footer}
     on:back={(event) => next(event.detail)}
     on:action={(event) => { actionHandler instanceof Function && actionHandler(event.detail); dispatch('action', event.detail); }}
 >
