@@ -9,8 +9,8 @@
     export let header = {};
     export let disabled = false;
 
-    let actions;
-    $: actions = footer.actions ?? [];
+    let actions = footer.actions ?? [];
+    $: actions = footer.actions;
 
     let dispatch = createEventDispatcher();
     let actionHandler = (event) => {
