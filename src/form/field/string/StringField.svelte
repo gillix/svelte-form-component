@@ -33,6 +33,7 @@
     export let password = options.password ?? null;
     export let limit = options.limit ?? false;
     export let fillTimeOut = 500;
+    export let validateOn = 'fill';
 
     if (required) {
         _class += ' required';
@@ -58,6 +59,15 @@
     function onFill(event) {
         clearTimeout(fillTimeOutID)
         dispatch('fill', event);
+        if (validateOn === 'fill') {
+            revalidate();
+        }
+    }
+
+    function revalidate () {
+        error = false;
+        fail = false;
+        errors = [];
         validate();
     }
 
@@ -82,16 +92,19 @@
         }
     }
     function attempt(event) {
-        error = false;
-        fail = false;
-        errors = [];
         startFill(event);
+        if (validateOn === 'input') {
+            revalidate();
+        }
         dispatch('input', event);
     }
     function apply(event) {
         error = fail;
         dispatch('change');
         dispatch('blur', event);
+        if (['blur', 'change'].includes(validateOn)) {
+            revalidate();
+        }
     }
     onMount(() => {
         validate();
