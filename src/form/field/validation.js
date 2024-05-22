@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import axios from "axios";
 
 yup.addMethod(yup.string, "website", function (errorMessage) {
     return this.test(`website`, errorMessage, function (value) {
@@ -6,6 +7,16 @@ yup.addMethod(yup.string, "website", function (errorMessage) {
 
         return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/.test(value)
          || createError({ path, message: errorMessage });
+    });
+});
+
+yup.addMethod(yup.string, "external", function (url, errorMessage) {
+    return this.test(`external`, errorMessage, async function (value) {
+        const { path, createError } = this;
+
+        let response = await axios.get(url, { params: { value: value } } );
+
+        return !response.data || createError({ path, message: errorMessage });
     });
 });
 
