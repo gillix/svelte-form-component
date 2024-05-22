@@ -32,6 +32,7 @@
     export let inputElement;
     export let password = options.password ?? null;
     export let limit = options.limit ?? false;
+    export let fillTimeOut = 500;
 
     if (required) {
         _class += ' required';
@@ -53,6 +54,20 @@
     let validator = Object.keys(validations).length ? createValidator('string', validations) : null;
     let dispatch = createEventDispatcher();
 
+    let fillTimeOutID = null;
+    function onFill(event) {
+        clearTimeout(fillTimeOutID)
+        dispatch('fill', event);
+        validate();
+    }
+
+    function startFill(event) {
+        if (fillTimeOutID) {
+            clearTimeout(fillTimeOutID)
+        }
+        fillTimeOutID = setTimeout(onFill, fillTimeOut);
+    }
+
     export function validate() {
         if (validator && value) {
             validator.validate(value)
@@ -70,7 +85,7 @@
         error = false;
         fail = false;
         errors = [];
-        validate();
+        startFill(event);
         dispatch('input', event);
     }
     function apply(event) {
