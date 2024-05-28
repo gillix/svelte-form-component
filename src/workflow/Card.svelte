@@ -112,6 +112,9 @@
         font-size: 1rem;
         font-weight: 400;
         color: rgba(0,0,0,.95);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .header .subtitle {
@@ -159,27 +162,29 @@
     }
 
     .header.with-logo {
+        padding-right: 40px;
     }
 
     .header.with-logo .header-content {
         text-align: left;
         display: flex;
-        gap: 20px;
+        gap: 15px;
         max-width: 775px;
         margin: 0 auto;
     }
 
     .header.with-logo .logo {
-        height: var(--card-header-height);
+        height: calc(var(--card-header-height) - 20px);
     }
 
     .header.with-logo .logo img {
-        height: calc(100% - 20px);
+        height: 100%;
         border: 1px solid var(--theme-dividers);
     }
 
     .header.with-logo .headline {
         flex: 1 1 auto;
+        width: calc(100% - 100px);
     }
 
 </style>

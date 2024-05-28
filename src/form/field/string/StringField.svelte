@@ -57,7 +57,8 @@
 
     let fillTimeOutID = null;
     function onFill(event) {
-        clearTimeout(fillTimeOutID)
+        clearTimeout(fillTimeOutID);
+        fillTimeOutID = null;
         dispatch('fill', event);
         if (validateOn === 'fill') {
             revalidate();
@@ -73,7 +74,7 @@
 
     function startFill(event) {
         if (fillTimeOutID) {
-            clearTimeout(fillTimeOutID)
+            clearTimeout(fillTimeOutID);
         }
         fillTimeOutID = setTimeout(onFill, fillTimeOut);
     }
@@ -110,7 +111,6 @@
         validate();
         inputElement = inputComponent.inputElement;
     });
-    // сбросить ошибки при изменении
 
     $: ready = !fail && (!required || !!value);
 </script>
