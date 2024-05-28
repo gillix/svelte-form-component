@@ -61,18 +61,15 @@
         fillTimeOutID = null;
         dispatch('fill', event);
         if (validateOn === 'fill') {
-            revalidate();
-        }
-        if (inputElement !== document.activeElement) {
-            apply();
+            revalidate(showError);
         }
     }
 
-    function revalidate () {
+    function revalidate (callback) {
         error = false;
         fail = false;
         errors = [];
-        validate();
+        validate(callback);
     }
 
     function startFill(event) {
@@ -82,7 +79,7 @@
         fillTimeOutID = setTimeout(onFill, fillTimeOut);
     }
 
-    export function validate() {
+    export function validate(callback) {
         if (validator && value) {
             validator.validate(value)
                 .then(() => {
@@ -92,22 +89,33 @@
                 .catch((err) => {
                     fail = true;
                     errors = err.errors;
+                    if (typeof callback === 'function') {
+                        callback();
+                    }
             });
         }
     }
+
+    function showError() {
+        error = fail;
+        if (inputElement && inputElement !== document.activeElement) {
+            inputElement.focus();
+        }
+    }
+
     function attempt(event) {
         startFill(event);
         if (validateOn === 'input') {
-            revalidate();
+            revalidate(showError);
         }
         dispatch('input', event);
     }
     function apply(event) {
-        error = fail;
         dispatch('change');
         dispatch('blur', event);
         if (['blur', 'change'].includes(validateOn)) {
             revalidate();
+            showError();
         }
     }
     onMount(() => {
