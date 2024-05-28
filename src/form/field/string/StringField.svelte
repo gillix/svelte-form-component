@@ -63,6 +63,9 @@
         if (validateOn === 'fill') {
             revalidate();
         }
+        if (inputElement !== document.activeElement) {
+            apply();
+        }
     }
 
     function revalidate () {
