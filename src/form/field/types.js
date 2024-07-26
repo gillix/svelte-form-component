@@ -1,5 +1,6 @@
 import SelectField from "./select/SelectField.svelte";
 import StringField from "./string/StringField.svelte";
+import CheckField from "./check/CheckField.svelte";
 
 export default {
     select: {
@@ -31,6 +32,10 @@ export default {
     },
     email: {
         component: StringField,
+        defaults: {}
+    },
+    check: {
+        component: CheckField,
         defaults: {}
     }
 }
