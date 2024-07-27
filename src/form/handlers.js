@@ -2,12 +2,15 @@ import operators from './operators';
 
 function createAction(action) {
     switch (action) {
-        case 'show': action = "self.active = true;"; break;
-        case 'hide': action = "self.active = false;"; break;
-        case 'disable': action = "self.disabled = true;"; break;
-        case 'enable': action = "self.disabled = false;"; break;
+        case 'show': action = "satisfied && self.active = true;"; break;
+        case 'hide': action = "satisfied && self.active = false;"; break;
+        case 'visible': action = "self.active = satisfied;"; break;
+        case 'disable': action = "satisfied && self.disabled = true;"; break;
+        case 'enable': action = "satisfied && self.disabled = false;"; break;
+        case 'disabled': action = "self.disabled = satisfied;"; break;
+        case 'enabled': action = "self.disabled = !satisfied;"; break;
     }
-    return new Function('self', 'target', action);
+    return new Function('self', 'target', 'satisfied', action);
 }
 
 let handlers = {
@@ -93,9 +96,7 @@ let handlers = {
             if (conditions) {
                 let satisfied = true;
                 conditions.forEach(condition => satisfied &&= operators[condition.operator](condition.value, condition.field.value));
-                if (satisfied) {
-                    return event.action(event.self, target);
-                }
+                return event.action(event.self, target, satisfied);
             }
         }
     },
@@ -125,7 +126,7 @@ let handlers = {
             }
         },
         handle: (event, target) => {
-            return event.action(event.self, target);
+            return event.action(event.self, target, true);
         }
     }
 }
