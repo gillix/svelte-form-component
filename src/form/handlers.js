@@ -94,8 +94,7 @@ let handlers = {
         handle: (event, target) => {
             let conditions = event.condition;
             if (conditions) {
-                let satisfied = true;
-                conditions.forEach(condition => satisfied &&= operators[condition.operator](condition.value, condition.field.value));
+                let satisfied = conditions.reduce((t, cond) => t &&= operators[cond.operator](cond.value, cond.field.value), true);
                 return event.action(event.self, target, satisfied);
             }
         }

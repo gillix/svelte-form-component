@@ -153,7 +153,7 @@
         on:keydown
         on:keyup
 
-        autogrow
+        autogrow={expandable}
         rows={lines ?? 1}
         bind:this={inputComponent}
         name={options.id}
