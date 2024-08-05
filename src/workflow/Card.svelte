@@ -109,7 +109,7 @@
     }
 
     .header .title {
-        font-size: 1rem;
+        font-size: 1em;
         font-weight: 400;
         color: rgba(0,0,0,.95);
         white-space: nowrap;
@@ -118,7 +118,7 @@
     }
 
     .header .subtitle {
-        font-size: .75rem;
+        font-size: .75em;
         color: rgba(0,0,0,.5);
     }
 

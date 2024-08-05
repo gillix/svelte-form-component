@@ -115,7 +115,7 @@
         display: flex;
         flex-direction: column;
         margin-top: 5px;
-        font-size: .85rem;
+        font-size: .85em;
     }
     .items.horizontal {
         flex-direction: row;
@@ -131,7 +131,7 @@
         color: var(--theme-text-secondary);
     }
     .header .label {
-        font-size: 1rem;
+        font-size: 1em;
         /*position: absolute;*/
         /*top: 16px;*/
         /*transform: translateY(-16px);*/
@@ -188,7 +188,7 @@
         width: 100%;
         justify-content: space-between;
         box-sizing: border-box;
-        font-size: .75rem;
+        font-size: .75em;
         border-top: 1px solid var(--theme-dividers);
         opacity: 0;
         transition: 0.5s cubic-bezier(0.25, 0.8, 0.5, 1);

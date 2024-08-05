@@ -4,6 +4,7 @@
     import {request} from './request';
     import Await from "../Await.svelte";
     import {createEventDispatcher, getContext, setContext, tick} from "svelte";
+    import {writable} from "svelte/store";
 
     export let tasks = {};
     export let layouts = [];
@@ -14,6 +15,9 @@
     let task;
     let disabled = false;
     let wait = new Promise((resolve) => resolve(state));
+
+    setContext('workflow-data', writable({}));
+    let wd = getContext('workflow-data');
 
     function next(target) {
         close((onResolve) => {
@@ -52,19 +56,20 @@
         dispatch('completed', data);
         let target = workflow[state].target;
         if (typeof target === "string") {
-            let wd = getContext('workflow-data') ?? {};
-            wd[state] = data;
-            setContext('workflow-data', wd);
+            $wd[state] = data;
             next(target);
+        } else if (typeof target === "function") {
+            next(target(data));
         } else if (typeof target === "object") {
-            if (target.api)
+            if (target.api) {
                 next(request(target.api, data)
                     .then((response) => {
                         if (typeof target.callback === 'string') {
                             const callback = new Function('response', target.callback);
                             try {
                                 callback(response);
-                            } catch (e) {}
+                            } catch (e) {
+                            }
                         }
                         let nextState = response.next;
                         if (typeof nextState === "string")
@@ -76,6 +81,7 @@
                             return target.default;
                         }
                     }));
+            }
         }
     }
 
@@ -119,7 +125,6 @@
     layout={layouts[layout]}
     {header}
     {disabled}
-    {back}
     {footer}
     on:back={(event) => next(event.detail)}
     on:action={(event) => { actionHandler instanceof Function && actionHandler(event.detail); dispatch('action', event.detail); }}
