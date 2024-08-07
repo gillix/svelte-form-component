@@ -59,7 +59,7 @@
             $wd[state] = data;
             next(target);
         } else if (typeof target === "function") {
-            next(target(data));
+            next(target(data, workflow));
         } else if (typeof target === "object") {
             if (target.api) {
                 next(request(target.api, data)
