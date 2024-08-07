@@ -21,7 +21,7 @@
     {#if progress}
         <div class="progress" transition:fade={{duration: 200}}>
             {#if linear}
-                <ProgressLinear indeterminate color="green" />
+                <ProgressLinear indeterminate color="green" backgroundColor="green" />
             {:else}
                 <ProgressCircular size={70} width={3} indeterminate color="green" />
             {/if}
