@@ -52,7 +52,7 @@
     }
     @media (min-width: 660px) {
         .form {
-            max-width: 400px;
+            max-width: 500px;
         }
     }
     @media (min-width: 960px) {
