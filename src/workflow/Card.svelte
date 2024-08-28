@@ -27,7 +27,7 @@
 <div class="card" style="{hasHeader ? '--card-header-height: 62px;' : ''}{hasFooter ? '--card-footer-height: 68px' : ''}">
     <slot name="header" {header}>
         {#if hasHeader}
-            <div class="header" style="--card-header-height: 62px" class:with-logo={header.logo}>
+            <div class="header workflow-card-header" style="--card-header-height: 62px" class:with-logo={header.logo}>
                 <div class="header-content">
                     {#if header.logo}<div class="logo"><img src="{header.logo}" alt="logo" /></div>{/if}
                     <div class="headline">
