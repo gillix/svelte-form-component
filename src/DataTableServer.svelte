@@ -66,4 +66,6 @@
 
     {loading}
     {...$$restProps}
-/>
+>
+    <slot name="footer-left" slot="footer-left"/>
+</DataTable>
