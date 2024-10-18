@@ -1,9 +1,10 @@
 <script>
-    import {Button} from 'material-components';
+    import Button from 'material-components/src/components/Button/Button.svelte';
     import { createEventDispatcher } from 'svelte';
-    import {Icon} from "material-components";
+    import Icon from "material-components/src/components/Icon/Icon.svelte";
     import {mdiArrowLeft} from "@mdi/js";
     import Custom from "../custom/Custom.svelte";
+    import Tooltip from "material-components/src/components/Tooltip/Tooltip.svelte"
 
     export let footer = [];
     export let header = {};
@@ -65,14 +66,16 @@
             <div class="actions">
                 {#each actions as action}
                     <div class="action">
-                        <Button
-                            disabled={disabled || action.disabled}
-                            depressed
-                            on:click={() => actionHandler(action.event)}
-                            class="{action.important ? (action.class ?? 'primary-color') : '' }"
-                        >
-                            {action.caption}
-                        </Button>
+                        <Tooltip message={action.tip ?? ''} >
+                            <Button
+                                disabled={disabled || action.disabled}
+                                depressed
+                                on:click={() => actionHandler(action.event)}
+                                class="{action.important ? (action.class ?? 'primary-color') : '' }"
+                            >
+                                {action.caption}
+                            </Button>
+                        </Tooltip>
                     </div>
                 {/each}
             </div>
