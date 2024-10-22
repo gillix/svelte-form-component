@@ -4,6 +4,7 @@
     import FieldsList from "../../form/FieldsList.svelte";
 
     import { createEventDispatcher } from 'svelte';
+    import tools from "../../tools";
 
     let dispatch = createEventDispatcher();
 
@@ -12,12 +13,13 @@
 
     export const handle = (event) => {
         if (event === 'complete') {
-            dispatch('completed', values);
+            dispatch('completed', tools.filter(values, (v, k) => visible[k]));
         }
     }
 
     export let ready = false;
     let values = {};
+    let visible = {};
     let filled = false;
     let error = false;
 </script>
@@ -34,6 +36,7 @@
                 fields={data.fields}
                 bind:ready
                 bind:values
+                bind:visible
         />
     </div>
 </div>

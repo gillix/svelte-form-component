@@ -61,6 +61,9 @@ export default {
                 }))
         }, target);
     },
+    filter: (source, fn) => {
+        return Object.fromEntries(Object.entries(source).filter(([key, value]) => fn(value, key)))
+    },
     generateUID: () => {
         return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     }

@@ -13,6 +13,7 @@
     export let color = 'secondary';
 
     let errors = {}, good = {}, instances = {}, events = null;
+    export let visible = {};
     export let values = {};
     export let ready = false;
 
@@ -41,6 +42,7 @@
 
 			bind:ready={good[field.id]}
 			bind:value={values[field.id]}
+			bind:active={visible[field.id]}
 			bind:this={instances[field.id]}
 
             bind:options={field}
