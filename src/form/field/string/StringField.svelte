@@ -161,6 +161,7 @@
         on:keypress
         on:keydown
         on:keyup
+        toolbar={editor}
 
         autogrow={expandable}
         bind:this={inputComponent}

@@ -34,7 +34,7 @@ export default {
         component: StringField,
         defaults: {}
     },
-    check: {
+    checkbox: {
         component: CheckField,
         defaults: {}
     }

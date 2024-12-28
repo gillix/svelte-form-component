@@ -80,7 +80,7 @@
             <div class="messages">
                 {#if error && errors.length}
                     {#each errors as message}
-                        <div class="message">{errors}</div>
+                        <div class="message">{message}</div>
                     {/each}
                 {:else}
                     <div class="message">{hint}</div>
@@ -208,7 +208,6 @@
       0% { opacity: 0 }
       100% { opacity: 1 }
     }
-
 
 
 </style>
