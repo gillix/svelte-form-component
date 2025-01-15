@@ -6,6 +6,7 @@
     export let clickable = false;
     export let hover = false;
     export let apiURL;
+    export let actions = false;
     export let texts = {
         loading: 'Loading...',
         noData: 'No data'
@@ -60,9 +61,11 @@
     sorted={tableData.sorted}
     pagination={tableData.pagination || false}
     on:rowClick
+    on:action
     {clickable}
     {hover}
     {texts}
+    {actions}
 
     {loading}
     {...$$restProps}
