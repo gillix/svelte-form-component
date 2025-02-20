@@ -15,8 +15,15 @@
         style = null,
         outlined = false,
         rounded = false,
-        content = ''
+        content = '',
+        url = false,
     } = data;
+
+    function onClick() {
+        if (url) {
+            window.location = url;
+        }
+    }
 
 </script>
 <Button
@@ -31,6 +38,7 @@
     {outlined}
     {rounded}
     class={klass}
+    on:click={onClick}
 >
     <Builder data={content} />
 </Button>
