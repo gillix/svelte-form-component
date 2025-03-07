@@ -16,10 +16,18 @@
         outlined = false,
         rounded = false,
         content = '',
+        onclick = null,
         url = false,
     } = data;
 
     function onClick() {
+        if (onclick) {
+            if (typeof onclick === "function") {
+                onclick();
+            } else {
+                new Function(onclick)();
+            }
+        }
         if (url) {
             window.location = url;
         }
