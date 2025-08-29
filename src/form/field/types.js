@@ -1,6 +1,7 @@
 import SelectField from "./select/SelectField.svelte";
 import StringField from "./string/StringField.svelte";
 import CheckField from "./check/CheckField.svelte";
+import ContactField from "./string/ContactField.svelte";
 
 export default {
     select: {
@@ -32,6 +33,10 @@ export default {
     },
     email: {
         component: StringField,
+        defaults: {}
+    },
+    phone: {
+        component: ContactField,
         defaults: {}
     },
     checkbox: {
