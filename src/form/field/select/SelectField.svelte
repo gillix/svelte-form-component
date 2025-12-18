@@ -41,7 +41,7 @@
     }
 
     $: {
-        ready = !fail && (!required || Array.isArray(value) ? value?.length : !!value);
+        ready = !fail && (!required || (Array.isArray(value) ? value?.length : !!value));
     }
 </script>
 <div class="select-field">
