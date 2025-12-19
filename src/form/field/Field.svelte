@@ -1,6 +1,7 @@
 <svelte:options accessors={true}/>
 <script>
 	import types from "./types";
+	import {createEventDispatcher} from "svelte";
 
 	export let options = {};
 	export let id = options.id;
@@ -19,13 +20,15 @@
 	export let field;
 
 	let controlReady = false;
+	let dispatch = createEventDispatcher();
 
-    export function validate() {
+	export function validate() {
     	if (field && active && typeof field.validate === "function") {
     		field.validate();
 		}
 	}
 
+	$: if (!active) { dispatch('change') }
 	$: ready = controlReady || !active;
 
 </script>
